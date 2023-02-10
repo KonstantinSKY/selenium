@@ -17,6 +17,7 @@ def exception_handler(func):
         except NoSuchElementException:
             print(f"In {func.__name__} was  Error")
             return None
+
     return inner_function
 
 
@@ -50,11 +51,33 @@ class Selen:
     def find_elems(self, by, content):
         self.element = self.element.find_elements(by, content)
 
+    @staticmethod
+    def move_perform(act):
+        def inner_act(self, *args, **kwargs):
+            self.act_chain.move_to_element(self.element)
+            self.act_chain.pause(0.5)
+            act(self, *args, **kwargs)
+            self.act_chain.perform()
+            sleep(2)
+
+        return inner_act
+
+    @move_perform
+    def click(self):
+        self.act_chain.click(self.element)
+
+    @move_perform
+    def send_key(self):
+        # self.act_chain.click(self.element)
+        print("DATA:", self.data)
+        self.act_chain.send_keys(self.data)
+
     def print_arg(self):
         print('self.elem :', self.element)
         print('self.obj :', self.object)
         print('self.action :', self.action)
         print('self.data :', self.data)
+
 
 if __name__ == '__main__':
     sel_inst = Selen()
