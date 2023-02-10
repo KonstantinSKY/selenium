@@ -20,15 +20,27 @@ URL = "URL"
 main = {
     URL: "https://www.google.com/",
     OBJECTS: {
-        "sign_in_button": [['xpath', '//*[@id="gb"]/div/div[2]', False]],
-        "input_field": [['tag name', "input", False]],
-        "email_login_field": [['id', 'identifierId', False]],
-        "next_button": [['id', 'identifierNext', False]],
+        "sign_in_button": [
+            {'by': 'xpath', 'attr': '//*[@id="gb"]/div/div[2]', 'many': "", 'position': ""}
+            ],
+        "input_search_field": [
+            {'by': 'tag name', 'attr': 'input'}
+            ]
+
         },
+
+
+        # "input_field": [['tag name', "input", False]],
+        # "email_login_field": [['id', 'identifierId', False]],
+        # "next_button": [['id', 'identifierNext', False]],
+        # },
     ACTIONS: {
         "click_sign_in": [{
             "obj": "sign_in_button", "cmd": "click", "link": sign_in
-            }, ],
+            }],
+        "input_search_data": [{
+            "obj": "input_search_field", "cmd": "send_key", "data": "california"
+            }],
         },
     }
 """
